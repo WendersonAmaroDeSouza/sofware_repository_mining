@@ -17,6 +17,10 @@ df_repository_metadatas = df_repository_metadatas.groupby(by=['year', 'month', '
 
 df_repository_metadatas = df_repository_metadatas.reset_index()
 
-# df_repository_metadatas['contribuitors_number'] = df_repository_metadatas['author_name'].apply(lambda x : len(x))
+df_repository_metadatas['contribuitors_number'] = df_repository_metadatas['author_name']['unique'].apply(lambda x : len(x))
+df_repository_metadatas['dmm_unit_complexity_value'] = df_repository_metadatas['dmm_unit_complexity']['sum'].apply(lambda x : x )
+df_repository_metadatas['complexity_value'] = df_repository_metadatas['complexity']['sum'].apply(lambda x : x )
 
-print(df_repository_metadatas.columns)
+df_repository_metadatas = df_repository_metadatas[['year', 'month', 'repository_category', 'project_name', 'dmm_unit_complexity_value', 'complexity_value', 'contribuitors_number']]
+
+print(df_repository_metadatas)
