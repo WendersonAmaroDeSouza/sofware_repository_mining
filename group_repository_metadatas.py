@@ -11,15 +11,15 @@ df_repository_metadatas = df_repository_metadatas.drop(columns='author_date')
 
 df_repository_metadatas = df_repository_metadatas.groupby(by=['year', 'month', 'project_name', 'repository_category'], as_index=False).agg({
     'author_name': pd.Series.unique,
-    'dmm_unit_complexity': ['sum'],
-    'complexity': ['sum']
+    'dmm_unit_complexity': ['mean'],
+    'complexity': ['mean']
 })
 
 df_repository_metadatas = df_repository_metadatas.reset_index()
 
 df_repository_metadatas['contribuitors_number'] = df_repository_metadatas['author_name']['unique'].apply(lambda x : len(x))
-df_repository_metadatas['dmm_unit_complexity_value'] = df_repository_metadatas['dmm_unit_complexity']['sum'].apply(lambda x : x )
-df_repository_metadatas['complexity_value'] = df_repository_metadatas['complexity']['sum'].apply(lambda x : x )
+df_repository_metadatas['dmm_unit_complexity_value'] = df_repository_metadatas['dmm_unit_complexity']['mean'].apply(lambda x : x )
+df_repository_metadatas['complexity_value'] = df_repository_metadatas['complexity']['mean'].apply(lambda x : x )
 
 df_repository_metadatas = df_repository_metadatas[['year', 'month', 'repository_category', 'project_name', 'dmm_unit_complexity_value', 'complexity_value', 'contribuitors_number']]
 
